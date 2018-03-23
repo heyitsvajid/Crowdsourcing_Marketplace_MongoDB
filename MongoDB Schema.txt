@@ -1,0 +1,60 @@
+var user = {
+   _id: USER_ID
+   name: USER_NAME, 
+   email: USER_EMAIL,
+   password: USER_PASSWORD,
+   phone: USER_PHONE,
+   skills: [SKILL1, SKILL2, SKILL3],
+   about: USER_ABOUT,
+   profile: USER_PROFILE_PATH,
+   registration: USER_REGISTRATION_DATE,
+   account_balance: USER_ACCOUNT_BALANCE	
+
+}
+
+var project = {
+   _id: PROJECT_ID
+   title: PROJECT_TITLE, 
+   employer_id: EMPLOYER_USER_ID,
+   employer_name: EMPLOYER_USER_NAME,
+   freelancer_id: FREELANCER_USER_ID,
+   freelancer_name: FREELANCER_USER_NAME,
+   description: PROJECT_DESCRIPTION,
+   technology_stack: [TAG1, TAG2, TAG3...],
+   budget_range: [min,max],
+   budget_period : PROJECT_PERIOD,
+   project_document: PROJECT_DOCUMENT,
+   date_posted: PROJECT_POSTED_DATE,
+   date_end: PROJECT_END_DATE,
+   submission_document: [DOC1,DOC2...],
+   project_status : PROJECT_STATUS,		
+   bids: [	
+      {
+         freelancer_id:,
+  	 bid_amount: ,
+   	 bid_period : PROJECT_PERIOD,
+         bid_status: TEXT,
+         bid_date: DATE_TIME,
+      },
+      {
+         freelancer_id:,
+  	 bid_amount: ,
+   	 bid_period : PROJECT_PERIOD,
+         bid_status: TEXT,
+         bid_date: DATE_TIME,
+      }
+   ]			
+}
+
+var payment_manager = {
+   _id: PAYMENT_ID
+   employer_id: POST_DESCRIPTION,
+   employer_name: POST_DESCRIPTION,
+   freelancer_id: POST_DESCRIPTION,
+   freelancer_name: POST_DESCRIPTION,
+   amount: POST_BY,
+   project_id: [TAG1, TAG2, TAG3],
+   project_name: [min,max],
+   payment_type : TOTAL_LIKES,
+   payment_date : TOTAL_LIKES,       			
+}
