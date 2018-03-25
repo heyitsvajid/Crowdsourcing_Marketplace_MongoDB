@@ -1,7 +1,7 @@
 module.exports = function (app) {
 
   var api_controller = require('../controllers/controller.js');
-  var passport = require('passport');
+  
 
   //Login
   app.post('/login', api_controller.login);
@@ -15,8 +15,6 @@ module.exports = function (app) {
 
   //Update profile
   app.post('/updateprofile', api_controller.updateprofile);
-
-  //    app.get('/addUser', api_controller.addUser);
 
   //Get profile
   app.post('/getProfile', api_controller.getprofile);
@@ -60,8 +58,11 @@ module.exports = function (app) {
   //hireEmployer
   app.post('/hireEmployer', api_controller.hireEmployer);
 
-  //test method without pool
+ //search project
+ app.post('/searchProject', api_controller.getSearchProject);
 
-  app.post('/getBidsWithoutThreadPool', api_controller.getBidsWithoutThreadPool);
+ //submit document by freelancer
+ app.post('/uploadSubmissionDocument', api_controller.uploadSubmissionDocument);
+
 
 }

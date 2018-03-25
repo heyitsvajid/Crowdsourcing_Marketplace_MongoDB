@@ -5,9 +5,12 @@ import SignUp from './Components/SignUp';
 import Home from './Components/Home';
 import Index from './Components/Index';
 import Dashboard from './Components/Dashboard';
+import Search from './Components/Search';
 import ProjectItem from './Components/ProjectItem';
 import MyProjects from './Components/MyProjects';
 import Profile from './Components/Profile';
+import Wallet from './Components/Wallet';
+
 import PostProject from './Components/PostProject';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './assets/css/bootstrap.min.css'
@@ -24,6 +27,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
+      <Route exact path="/search" component={Search} />
+      <Route exact path="/wallet" component={Wallet} />
+
         <Route exact path="/myprojects" component={MyProjects} />
         <Route exact path="/postproject" component={PostProject} />
         <Route exact path="/profile" component={Profile} />
