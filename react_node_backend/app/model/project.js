@@ -8,23 +8,24 @@ var autoIncrement = require('../../server.js');
 //object that shows the shape of your database entries.
 
 var ProjectSchema = new Schema({
-    title: { type: String, lowercase: true, trim: true, required: true },
+    title: { type: String, trim: true, required: true },
     employer_id: { type: Number, required: true },
     employer_name: { type: String, required: true },
     freelancer_id: { type: Number, default: 0 },
     freelancer_name: { type: String, default: '' },
     description: { type: String, required: true },
     technology_stack: [String],
-    budget_range: [{ type: Number, required: true }],
+    budget_range: [{ type: String, required: true }],
     budget_period: { type: Number, required: true },
     project_document: { type: String, required: true },
     date_posted: { type: Date, default: Date.now },
-    date_end: { type: Date },
+    date_end: { type: String,default:'' },
     submission_document: [String],
     project_status: { type: String, required: true },
     bids: [
         {
             freelancer_id: Number,
+            freelancer_name: String,            
             bid_amount: Number,
             bid_period: Number,
             bid_status: String,
