@@ -1,11 +1,9 @@
 module.exports = function (app) {
 
   var api_controller = require('../controllers/controller.js');
-  
 
   //Login
   app.post('/login', api_controller.login);
-
 
   //SignUp
   app.post('/signup', api_controller.signup);
@@ -25,10 +23,8 @@ module.exports = function (app) {
   //Post Project
   app.post('/postProject', api_controller.postProject);
 
-
   //Post Project
   app.post('/getOpenProjects', api_controller.getOpenProjects);
-
 
   //Get Project from id
   app.post('/getProject', api_controller.getProject);
@@ -54,15 +50,33 @@ module.exports = function (app) {
   //Check Bid 
   app.post('/checkBid', api_controller.checkBid);
 
-
   //hireEmployer
   app.post('/hireEmployer', api_controller.hireEmployer);
 
- //search project
- app.post('/searchProject', api_controller.getSearchProject);
+  //search project
+  app.post('/searchProject', api_controller.getSearchProject);
 
- //submit document by freelancer
- app.post('/uploadSubmissionDocument', api_controller.uploadSubmissionDocument);
+  //submit document by freelancer
+  app.post('/uploadSubmissionDocument', api_controller.uploadSubmissionDocument);
 
+  //Add Money to wallet
+  app.post('/addMoney', api_controller.addMoney);
+
+  //Wallet Details
+  app.post('/getUserWalletDetails', api_controller.getUserWalletDetails);
+
+  //Get User and Project Details
+  app.post('/getUserDetails', api_controller.getUserDetails);
+
+  //Get User and Project Details
+  app.post('/payFreelancer', api_controller.payFreelancer);
+
+  //Get User and Project Details
+  app.post('/withdrawMoney', api_controller.withdrawMoney);
+
+  //Kafka Test Method
+  app.post('/kafkaTest', api_controller.kafkaTest);
 
 }
+
+
