@@ -591,6 +591,55 @@ exports.getProject_request = function getProject_request(msg, callback) {
     }
 }
 
+exports.getProject_request_withoutConnectionPooling = function getProject_request(msg, callback) {
+    // Get project detail from id API
+    var resultObject = {
+        successMsg: '',
+        errorMsg: 'Error fetching project',
+        data: {}
+    }
+    if (!msg.id) {
+        console.log('No Id provided');
+        resultObject.errorMsg = 'No Id provided';
+        callback(null, resultObject);
+        return;
+    } else {
+        try {
+            let id = msg.id;
+            let currentUserId = msg.currentUserId;
+            if (msg.id != '') {
+                var MongoClient = require('mongodb').MongoClient;
+                var url = "mongodb://root:root@ds221609.mlab.com:21609/freelancer";
+                MongoClient.connect(url, function (err, db) {
+                    if (err) throw err;
+                    var dbo = db
+                    dbo.collection("projects").findOne({}, function (err, result) {
+                        if (err) throw err;
+                        console.log("Printing Result:")
+                        console.log(result);
+                        resultObject.data = result;
+                        resultObject.errorMsg = '';
+                        resultObject.successMsg = 'Project Found';
+                        callback(null, resultObject);
+                        db.close();
+                    });
+                });
+            } else {
+                console.log('Please provide Project Id');
+                resultObject.errorMsg = 'Please provide Project Id';
+                resultObject.successMsg = '';
+                callback(null, resultObject);
+                return;
+            }
+        } catch (e) {
+            console.log('Error Occured');
+            resultObject.errorMsg = 'Error Occured';
+            resultObject.successMsg = '';
+            callback(null, resultObject);
+        }
+    }
+}
+
 exports.getSearchProject_request = function getSearchProject_request(msg, callback) {
     var resultObject = {
         successMsg: '',
@@ -644,25 +693,49 @@ exports.getOpenProjects_request = function getOpenProjects_request(msg, callback
         errorMsg: 'Error fetching profile',
         data: {}
     }
-    if (!msg.id) {
+    if (!msg.body.id) {
         console.log('No Id provided');
         resultObject.errorMsg = 'No Id provided';
         callback(null, resultObject);
         return;
     } else {
         try {
-            if (msg.id != '') {
-                let employer_id = msg.id;
+            if (msg.body.id != '') {
+                let employer_id = msg.body.id;
+                let skills = msg.skills;
+                console.log(skills);
                 console.log(employer_id);
                 Project.find({ $and: [{ employer_id: { '$ne': employer_id }, freelancer_id: 0 }] }, function (error, projects) {
                     // In case of any error return
                     try {
                         if (error) throw error;
-                        console.log(projects);
+                        var data = {
+                            allProjects:[],
+                            releventProjects: []
+                        }
+                        
+                        projects.forEach(project => {
+                        data.allProjects.push(project);
+                            let count = 0;
+                            console.log("For Stack")
+                            
+                            console.log(project.technology_stack)
+                            project.technology_stack.forEach(skill => {
+                                console.log('For Skill :' +skill)
+                                console.log(skills.includes(skill))
+                                if (skills.includes(skill)) {
+                                    count++;
+                                }
+                            });
+                            if (count >= 3) {
+                                data.releventProjects.push(project)
+                            } 
+                        });
+//                        console.log(data);
                         console.log('Fetch projects Succcessful');
                         resultObject.errorMsg = '';
                         resultObject.successMsg = 'Fetch projects Succcessful';
-                        resultObject.data = projects;
+                        resultObject.data = data;
                         callback(null, resultObject);
                         return;
                     } catch (error) {

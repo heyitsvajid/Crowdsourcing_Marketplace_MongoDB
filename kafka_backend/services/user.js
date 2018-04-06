@@ -9,16 +9,33 @@ var bcrypt = require('bcrypt');
 exports.login_request = function login_request(msg, callback) {
     var res = {};
     console.log("In handle request:" + JSON.stringify(msg));
+    var resultObject = {
+        successMsg: '',
+        errorMsg: 'Error uploading image',
+        data: {}
+    }
+    User.findOne({ 'email': msg.email }, function (error, user) {
+        if (error) {
+            console.log('Catch : ' + error.message);
+            resultObject.errorMsg = error.message;
+            callback(null, resultObject);
+            return;
+        }
+        if (!user) {
+            resultObject.successMsg = ''
+            resultObject.errorMsg = 'User Not Found';
+            callback(null, resultObject);
+            return;
 
-    if (msg.username == "bhavan@b.com" && msg.password == "a") {
-        res.code = "200";
-        res.value = "Success Login";
-    }
-    else {
-        res.code = "401";
-        res.value = "Failed Login";
-    }
-    callback(null, res);
+        }
+        resultObject.successMsg = 'User Found';
+        resultObject.errorMsg = '';
+        resultObject.data = user;
+        callback(null, resultObject);
+        return;
+    });
+
+
 }
 
 
@@ -46,7 +63,8 @@ exports.uploadImage_request = function uploadImage_request(msg, callback) {
             callback(null, resultObject);
             return;
         });
-    });}
+    });
+}
 
 exports.getprofileimage_request = function getprofileimage_request(msg, callback) {
     // getprofileimage API
