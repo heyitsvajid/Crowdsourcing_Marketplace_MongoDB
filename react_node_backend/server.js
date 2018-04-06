@@ -9,6 +9,8 @@ var app = express();
 var session = require('express-session');
 var   mongodbStore = require('connect-mongo')(session);
 var router = express.Router();
+
+
 //For Client-Session
 
 //  var session = require('client-sessions');
@@ -74,7 +76,6 @@ app.use(function (req, res, next) {
 router.get('/', function (req, res) {
   res.json({ message: 'API Up and Running!' });
 });
-
 
 //Use our router configuration when we call /api
 //app.use('/api', router);

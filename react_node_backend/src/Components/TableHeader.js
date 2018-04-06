@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 class TableHeader extends Component {
   render() {
     return (
-            <th className='tableHeader' >{this.props.tableHeaderValue}</th>
+            <th className='tableHeader' >{(this.props.tableHeaderValue).toUpperCase()}</th>
           );
   }
 }
