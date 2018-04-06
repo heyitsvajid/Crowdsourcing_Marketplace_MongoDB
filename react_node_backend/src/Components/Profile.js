@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class Profile extends Component {
 
@@ -19,7 +20,7 @@ class Profile extends Component {
     }
 
     componentWillMount() {
-        let url = 'http://localhost:3001/isLoggedIn';
+        let url = envURL+'isLoggedIn';
         axios.get(url, { withCredentials: true })
             .then(res => {
 

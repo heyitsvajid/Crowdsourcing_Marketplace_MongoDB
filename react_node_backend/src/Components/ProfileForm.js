@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Image from './Image';
+import Creatable from './CreatableDemo'
 import { withRouter } from 'react-router-dom'
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class ProfileForm extends Component {
   constructor(props) {
@@ -38,7 +40,7 @@ class ProfileForm extends Component {
   }
 
   componentWillMount() {
-    let getprofileAPI = 'http://localhost:3001/getprofile';
+    let getprofileAPI = envURL+'getprofile';
     let id = localStorage.getItem('id');
     if (id) {
       var apiPayload = {
@@ -73,7 +75,7 @@ class ProfileForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let updateProfileAPI = 'http://localhost:3001/updateprofile';
+    let updateProfileAPI = envURL+'updateprofile';
     let name = this.state.name.trim();
     let email = this.state.email.trim();
     let password = this.state.password;
@@ -90,6 +92,7 @@ class ProfileForm extends Component {
       })
       return;
     }
+
     var apiPayload = {
       name: name,
       email: email,
@@ -119,6 +122,16 @@ class ProfileForm extends Component {
         console.error(err);
       });
   }
+  multiValueChange(val){
+    var multiValues = []
+    val.forEach(element => {
+      multiValues.push(element.value)
+    });
+    this.setState({
+      skills : multiValues.join( ',' )
+    })
+  }
+
   render() {
     return (
       <div>
@@ -139,35 +152,36 @@ class ProfileForm extends Component {
 
               <form class="form-horizontal" >
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Name</label>
+                  <label class="col-lg-3 control-label"><strong>Name</strong></label>
                   <div class="col-lg-8">
                     <input class="form-control" type="text" name="name"
                       placeholder="Name" required="" value={this.state.name} onChange={this.handleUserInput} />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Email</label>
+                  <label class="col-lg-3 control-label"><strong>Email</strong></label>
                   <div class="col-lg-8">
                     <input class="form-control" type="email" name="email"
                       placeholder="Email" required="" value={this.state.email} onChange={this.handleUserInput} />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Skills</label>
+                  <label class="col-lg-3 control-label"><strong>Skills</strong></label>
                   <div class="col-lg-8">
-                    <input class="form-control" type="text" name="skills"
-                      placeholder="Comma Separated Skills" value={this.state.skills} onChange={this.handleUserInput} />
+                  <Creatable skills={this.state.skills} multiValueChange={this.multiValueChange.bind(this)} />
+                    {/* <input class="form-control" type="text" name="skills"
+                      placeholder="Comma Separated Skills" value={this.state.skills} onChange={this.handleUserInput} /> */}
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Phone</label>
+                  <label class="col-lg-3 control-label"><strong>Phone</strong></label>
                   <div class="col-lg-8">
                     <input class="form-control" type="number" name="phone"
                       placeholder="Phone" value={this.state.phone} onChange={this.handleUserInput} />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-md-3 control-label">About</label>
+                  <label class="col-md-3 control-label"><strong>About</strong></label>
                   <div class="col-md-8">
                     <textarea class="form-control" rows="5" name="about"
                       placeholder="About Me" value={this.state.about} onChange={this.handleUserInput}></textarea>
