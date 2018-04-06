@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios, { post } from 'axios';
 import swal from 'sweetalert2'
 import { withRouter } from 'react-router-dom'
+import { envURL, reactURL } from '../config/environment';
 
 class ImageUpload extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class ImageUpload extends Component {
   }
 
   componentWillMount() {
-    let getprofileImageAPI = 'http://localhost:3001/getProfileImage';
+    let getprofileImageAPI = envURL+'getProfileImage';
     let id = localStorage.getItem('id');
     if (id) {
       var apiPayload = {
@@ -54,7 +55,7 @@ class ImageUpload extends Component {
   _handleSubmit(e) {
     e.preventDefault();
     // TODO: do something with -> this.state.file
-    let uploadAPI = 'http://localhost:3001/uploadImage';
+    let uploadAPI = envURL+'uploadImage';
     const formData = new FormData();
     formData.append('file', this.state.file);
     formData.append('id', localStorage.getItem('id'));

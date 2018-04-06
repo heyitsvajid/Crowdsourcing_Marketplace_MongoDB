@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class Payment extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class Payment extends Component {
     }
 
     componentWillMount() {
-        let getUserDetailsAPI = 'http://localhost:3001/getUserDetails';
+        let getUserDetailsAPI = envURL+'getUserDetails';
         let project_id= localStorage.getItem('currentProjectId');
         let userId = localStorage.getItem('id');
         var apiPayload = {user_id: userId,project_id:project_id};
@@ -75,7 +76,7 @@ class Payment extends Component {
 
 
         if(this.checkCanPay()){
-            let payFreelancerAPI = 'http://localhost:3001/payFreelancer';
+            let payFreelancerAPI = envURL+'payFreelancer';
             let project_id = localStorage.getItem('currentProjectId');    
             var apiPayload = { project_id: project_id};
             axios.post(payFreelancerAPI, apiPayload)
@@ -94,7 +95,7 @@ class Payment extends Component {
                             text: res.data.successMsg,
                         })
                         setTimeout(function () {
-                            window.location.href = 'http://localhost:3000/dashboard'
+                            window.location.href = reactURL+'dashboard'
                         }, 5000);
                     }
                 })

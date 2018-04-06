@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class BankDetail extends Component {
 
@@ -29,7 +30,8 @@ class BankDetail extends Component {
     }
 
     handleSubmit() {
-        let addMoneyAPI = 'http://localhost:3001/withdrawMoney';
+        
+        let addMoneyAPI = envURL+'withdrawMoney';
         //alert("abc");
         let user_id = localStorage.getItem('id');
         let name = this.state.bankName;
@@ -82,7 +84,7 @@ class BankDetail extends Component {
                         text: res.data.successMsg,
                     })
                     setTimeout(function () {
-                        window.location.href='http://localhost:3000/wallet'
+                        window.location.href=reactURL+'wallet'
                     }, 3000);                }
             })
             .catch(err => {

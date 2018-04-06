@@ -5,6 +5,7 @@ import '../assets/css/custom.css'
 import axios from 'axios';
 import {withRouter} from 'react-router-dom'
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class SignUp extends Component {
 
@@ -23,7 +24,7 @@ class SignUp extends Component {
     }
 
     componentWillMount(){
-        let url = 'http://localhost:3001/isLoggedIn';
+        let url = envURL+'isLoggedIn';
         axios.get(url,{withCredentials: true})
             .then(res => {
                 
@@ -87,7 +88,7 @@ class SignUp extends Component {
         return (error.length === 0 ? '' : 'has-error');
     }
     handleSubmit() {     
-        let signUpAPI='http://localhost:3001/signup';
+        let signUpAPI=envURL+'signup';
         //alert("abc");
         let name = this.state.name.trim();
         let email = this.state.email.trim();
@@ -109,7 +110,12 @@ class SignUp extends Component {
                     localStorage.setItem('id',res.data.data.id);
                     localStorage.setItem('name',res.data.data.name);
                     localStorage.setItem('email',res.data.data.email);
-                    this.props.history.push('/home');
+                    this.props.history.push('/login');
+                    swal({
+                        type: 'success',
+                        title: 'Sign Up',
+                        text: 'Login to Continue',
+                      })
                 }
             })
             .catch(err => {
@@ -145,9 +151,7 @@ class SignUp extends Component {
                         onClick={this.handleSubmit.bind(this)}>Create Account</button>
                     <p className="mt-5 mb-3 text-muted">© 2017-2018</p>
 
-                    
-
-
+                
                     <span className="login-form-signup-link">
                         Already a Freelancer.com member?
                         <Link to="/login"><a className="switch-to-login">Log In</a></Link>
@@ -160,6 +164,4 @@ class SignUp extends Component {
         )
     }
 }
-
-
 export default withRouter(SignUp);

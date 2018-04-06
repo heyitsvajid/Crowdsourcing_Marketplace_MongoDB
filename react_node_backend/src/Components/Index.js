@@ -5,8 +5,9 @@ import '../assets/css/home1.css';
 import '../assets/css/home2.css';
 import { Link } from 'react-router-dom';
 
-class Index extends Component {
 
+
+class Index extends Component {
 
     render() {
         return (

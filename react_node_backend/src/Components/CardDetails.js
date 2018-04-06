@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom'
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class CardDetails extends Component {
 
@@ -31,7 +32,7 @@ class CardDetails extends Component {
     }
 
     handleSubmit() {     
-        let addMoneyAPI='http://localhost:3001/addMoney';
+        let addMoneyAPI=envURL+'addMoney';
         //alert("abc");
         let user_id = localStorage.getItem('id');
         let name = this.state.cardHolderName;

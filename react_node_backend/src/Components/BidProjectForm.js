@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
+
 
 class BidProjectForm extends Component {
     constructor(props) {
@@ -15,7 +17,7 @@ class BidProjectForm extends Component {
     }
 
     componentWillMount(){
-        let checkBidAPI = 'http://localhost:3001/checkBid';
+        let checkBidAPI = envURL+'checkBid';
         let projectId = localStorage.getItem('currentProjectId');
         let userId = localStorage.getItem('id');
         var apiPayload = {userId: userId, projectId: projectId};
@@ -53,12 +55,14 @@ class BidProjectForm extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        let postBidAPI = 'http://localhost:3001/postBid';
+        let postBidAPI = envURL+'postBid';
         let period = this.state.period;
         let amount = this.state.amount;
         let update = this.state.update;
         let projectId = localStorage.getItem('currentProjectId');
         let userId = localStorage.getItem('id');
+        let freelancer_name = localStorage.getItem('name');
+        
         if (!period || !amount) {
             return;
         }
@@ -66,7 +70,8 @@ class BidProjectForm extends Component {
             console.log('Project/Employee ID not found');
             return;
         }
-        var apiPayload = { update:update,userId: userId, projectId: projectId, period: period, amount: amount };
+
+        var apiPayload = { freelancer_name:freelancer_name,update:update,userId: userId, projectId: projectId, period: period, amount: amount };
         axios.post(postBidAPI, apiPayload)
             .then(res => {
                 if (res.data.errorMsg != '') {
@@ -83,7 +88,7 @@ class BidProjectForm extends Component {
                         text: res.data.successMsg,
                       })
                       setTimeout(function () {
-                        window.location.href='http://localhost:3000/projectitem'
+                        window.location.href=reactURL+'projectitem'
                     }, 5000);
                       
                 }

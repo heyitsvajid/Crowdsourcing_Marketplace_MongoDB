@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class Header extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Header extends Component {
   logout(e) {
     e.preventDefault();
     localStorage.clear();
-    let url = 'http://localhost:3001/logout';
+    let url = envURL+'logout';
     localStorage.setItem('email', '');
     axios.get(url, { withCredentials: true })
       .then(res => {

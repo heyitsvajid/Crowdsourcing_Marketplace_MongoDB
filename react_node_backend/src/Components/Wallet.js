@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import swal from 'sweetalert2'
 import PieChart from 'react-simple-pie-chart';
+import { envURL, reactURL } from '../config/environment';
 
 class Wallet extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class Wallet extends Component {
     }
 
     componentWillMount() {
-        let url = 'http://localhost:3001/isLoggedIn';
+        let url = envURL+'isLoggedIn';
         axios.get(url, { withCredentials: true })
             .then(res => {
 
@@ -30,7 +31,7 @@ class Wallet extends Component {
                     localStorage.setItem('id', res.data.id);
                     localStorage.setItem('name', res.data.name);
                     localStorage.setItem('email', res.data.email);
-                    let getUserWalletDetails = 'http://localhost:3001/getUserWalletDetails';
+                    let getUserWalletDetails = envURL+'getUserWalletDetails';
                     let id = localStorage.getItem('id');
                     if (id) {
                         var apiPayload = {

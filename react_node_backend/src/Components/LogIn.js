@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../assets/css/custom.css'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
-
+import { envURL, reactURL } from '../config/environment';
 class SignIn extends Component {
 
     constructor(props) {
@@ -24,7 +24,7 @@ class SignIn extends Component {
 
 
     componentWillMount(){
-        let url = 'http://localhost:3001/isLoggedIn';
+        let url = envURL+'isLoggedIn';
         axios.get(url,{withCredentials: true})
             .then(res => {
                 
@@ -83,7 +83,7 @@ class SignIn extends Component {
         return (error.length === 0 ? '' : 'has-error');
     }
     handleSubmit() {
-        let signUpAPI = 'http://localhost:3001/login';
+        let signUpAPI = envURL+'login';
         let email = this.state.email.trim();
         let password = this.state.password;
         if (!email || !password) {

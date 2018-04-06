@@ -5,6 +5,7 @@ import Table from './Table'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class MyProjects extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class MyProjects extends Component {
         };
     }
     componentWillMount() {
-        let url = 'http://localhost:3001/isLoggedIn';
+        let url = envURL+'isLoggedIn';
         axios.get(url,{withCredentials: true})
             .then(res => {
                 
@@ -27,7 +28,7 @@ class MyProjects extends Component {
                     localStorage.setItem('id', res.data.id);
                     localStorage.setItem('name', res.data.name);
                     localStorage.setItem('email', res.data.email);
-                    let getUserProjects = 'http://localhost:3001/getUserProjects';
+                    let getUserProjects = envURL+'getUserProjects';
                     let id = localStorage.getItem('id');
                     if (id) {
                         var apiPayload = {
