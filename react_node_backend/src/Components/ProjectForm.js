@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { post } from 'axios';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert2'
+import { envURL, reactURL } from '../config/environment';
 
 class ProjectForm extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class ProjectForm extends Component {
       title: '',
       description: '',
       skill: '',
-      budget: '',
+      min: '',
+      max:'',
       period: '',
     }
     this._handleChangeFile = this._handleChangeFile.bind(this);
@@ -28,15 +30,17 @@ class ProjectForm extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    let postProjectAPI = 'http://localhost:3001/postProject';
+    let postProjectAPI = envURL+'postProject';
     let title = this.state.title.trim();
     let description = this.state.description;
     let skill = this.state.skill;
-    let budget = this.state.budget;
+    let min = this.state.min;
+    let max = this.state.max;
     let period = this.state.period;
-    let id = localStorage.getItem('id');
+    let employer_id = localStorage.getItem('id');
+    let employer_name = localStorage.getItem('name');
 
-    if (!title || !description || !budget || !skill || !period) {
+    if (!title || !description || !min || !skill || !period) {
       swal({
         type: 'error',
         title: 'Post Project',
@@ -47,11 +51,13 @@ class ProjectForm extends Component {
 
     const formData = new FormData();
     formData.append('file', this.state.file);
-    formData.append('id', id);
+    formData.append('employer_id', employer_id);
+    formData.append('employer_name', employer_name);
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('skill', skill);
-    formData.append('budget', budget);
+    formData.append('skills', skill);
+    formData.append('min', min);
+    formData.append('max', max);
     formData.append('period', period);
     const config = {
       headers: {
@@ -72,18 +78,18 @@ class ProjectForm extends Component {
             title: 'Post Project',
             text: 'Project posted successfully',
           })
-          window.location.href = 'http://localhost:3000/home'
-          this.setState({
-            file: '',
-            successMessage: '',
-            errorMessage: '',
-            title: '',
-            description: '',
-            skill: '',
-            budget: '',
-            period: '',
-          });
-        
+           window.location.href = reactURL+'home'
+           this.setState({
+             file: '',
+             successMessage: '',
+             errorMessage: '',
+             title: '',
+             description: '',
+             skill: '',
+             min: '',
+             max:'',
+             period: '',
+           });
       }
     });
   }
@@ -132,17 +138,24 @@ class ProjectForm extends Component {
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-3 control-label"><strong>Main Skill</strong></label>
+                <label class="col-lg-3 control-label"><strong>Skills</strong></label>
                 <div class="col-lg-8">
                   <input class="form-control" type="text" name="skill"
-                    placeholder="Skill" required="" value={this.state.skill} onChange={this.handleUserInput} />
+                    placeholder="Comma separated Skills" required="" value={this.state.skill} onChange={this.handleUserInput} />
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-lg-3 control-label"><strong>Budget Range</strong></label>
+                <label class="col-lg-3 control-label"><strong>Minimum Budget</strong></label>
                 <div class="col-lg-8">
-                  <input class="form-control" type="text" name="budget"
-                    placeholder="Like 100-200" required="" value={this.state.budget} onChange={this.handleUserInput} />
+                  <input class="form-control" type="number" name="min"
+                    placeholder="Minimum Budget" required="" value={this.state.min} onChange={this.handleUserInput} />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-3 control-label"><strong>Maximum Budget</strong></label>
+                <div class="col-lg-8">
+                  <input class="form-control" type="number" name="max"
+                    placeholder="Maximum Budget" required="" value={this.state.max} onChange={this.handleUserInput} />
                 </div>
               </div>
               <div class="form-group">

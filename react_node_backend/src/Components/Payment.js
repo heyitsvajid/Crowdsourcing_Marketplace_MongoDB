@@ -9,30 +9,30 @@ class Payment extends Component {
         super(props);
         this.state = {
             canPayFromWallet: false,
-            user :'',
-            project:'',
-            payment:false 
+            user: '',
+            project: '',
+            payment: false
 
         }
     }
 
-    getBidAMount(){
+    getBidAMount() {
         this.state.project.bids.forEach(element => {
-            if(element.bid_status=='BID ACCEPTED'){
+            if (element.bid_status == 'BID ACCEPTED') {
                 return element.bid_amount;
             }
         });
-        
+
     }
-    checkCanPay(){
-        let bidAmount= 0;        
+    checkCanPay() {
+        let bidAmount = 0;
         this.state.project.bids.forEach(element => {
-            if(element.bid_status=='BID ACCEPTED'){
-                bidAmount=element.bid_amount;
+            if (element.bid_status == 'BID ACCEPTED') {
+                bidAmount = element.bid_amount;
                 return;
             }
         });
-        if(parseInt(this.state.user.account_balance)>parseInt(bidAmount)){
+        if (parseInt(this.state.user.account_balance) > parseInt(bidAmount)) {
             return true
         }
         return false;
@@ -40,10 +40,10 @@ class Payment extends Component {
     }
 
     componentWillMount() {
-        let getUserDetailsAPI = envURL+'getUserDetails';
-        let project_id= localStorage.getItem('currentProjectId');
+        let getUserDetailsAPI = envURL + 'getUserDetails';
+        let project_id = localStorage.getItem('currentProjectId');
         let userId = localStorage.getItem('id');
-        var apiPayload = {user_id: userId,project_id:project_id};
+        var apiPayload = { user_id: userId, project_id: project_id };
         axios.post(getUserDetailsAPI, apiPayload)
             .then(res => {
                 if (res.data.errorMsg != '') {
@@ -51,14 +51,17 @@ class Payment extends Component {
                         errorMessage: res.data.errorMsg
                     });
                 } else {
-                    if (res.data.data.project_status != 'Closed') {
+                    debugger;
+                    if (res.data.data.project[0].project_status != 'Closed') {
                         console.log(res.data.data);
                         this.setState({
-                            user: res.data.data.user,
-                            project: res.data.data.project[0],
-                            payment:true
-                        }) 
+                            payment: true
+                        })
                     }
+                    this.setState({
+                        user: res.data.data.user,
+                        project: res.data.data.project[0],
+                    });
                 }
             })
             .catch(err => {
@@ -75,10 +78,10 @@ class Payment extends Component {
         e.preventDefault();
 
 
-        if(this.checkCanPay()){
-            let payFreelancerAPI = envURL+'payFreelancer';
-            let project_id = localStorage.getItem('currentProjectId');    
-            var apiPayload = { project_id: project_id};
+        if (this.checkCanPay()) {
+            let payFreelancerAPI = envURL + 'payFreelancer';
+            let project_id = localStorage.getItem('currentProjectId');
+            var apiPayload = { project_id: project_id };
             axios.post(payFreelancerAPI, apiPayload)
                 .then(res => {
                     if (res.data.errorMsg != '') {
@@ -95,16 +98,16 @@ class Payment extends Component {
                             text: res.data.successMsg,
                         })
                         setTimeout(function () {
-                            window.location.href = reactURL+'dashboard'
+                            window.location.href = reactURL + 'dashboard'
                         }, 5000);
                     }
                 })
                 .catch(err => {
                     console.error(err);
                 });
-    
+
         }
-        else{
+        else {
             swal({
                 type: 'error',
                 title: 'Pay Freelancer',
@@ -125,8 +128,8 @@ class Payment extends Component {
             return (<button className="btn btn-lg btn-success" type="submit"
                 onClick={this.handlePayment.bind(this)} >Pay from Wallet</button>
             );
-        }else{
-            return(<h1 className='h3 mb-3 font-weight-normal'>Payment Complete </h1>)
+        } else {
+            return (<h1 className='h3 mb-3 font-weight-normal text-success'>Payment Complete </h1>)
         }
     }
     render() {

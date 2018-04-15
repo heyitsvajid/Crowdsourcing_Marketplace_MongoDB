@@ -54,11 +54,12 @@ class ProjectItem extends Component {
                         });
                         // eslint-disable-next-line
                     } else if (res.data.successMsg != '') {
+                        debugger;
                         this.setState({
                             title: res.data.data.title,
                             skill: res.data.data.skill,
                             description: res.data.data.description,
-                            budget: res.data.data.budget,
+                            budget_range: res.data.data.budget_range.join('-'),
                             period: res.data.data.period,
                             average: res.data.data.average,
                             documentHref: res.data.data.project_document,
@@ -246,7 +247,7 @@ class ProjectItem extends Component {
                                                             </tr>
                                                             <tr>
                                                                 <td><strong>Budget</strong></td>
-                                                                <td><strong>$</strong> {this.props.project.budget_range}</td>
+                                                                <td><strong>$</strong> {this.state.budget_range}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td><strong>Period</strong></td>

@@ -85,7 +85,7 @@ class CustomRow extends Component {
                 <tr align='center'>
                     <td><a href='' id={this.props.rowData._id} onClick={this.handleProjectClick} >{this.props.rowData.title}</a></td>
                     <td><a href='' id={this.props.rowData.employer_id} onClick={this.handleProfileClick} >{this.props.rowData.employer_name}</a></td>
-                    <td>{this.props.rowData.technology_stack}</td>
+                    <td>{this.props.rowData.technology_stack.join(',')}</td>
                     <td>$ {this.calculateAverageBid(this.props.rowData.bids)}</td>
                     <td>$ {this.props.rowData.budget_range[0]}-{this.props.rowData.budget_range[1]}</td>
                     <td>{this.props.rowData.budget_period} Days</td>
@@ -99,7 +99,7 @@ class CustomRow extends Component {
                 <tr align='center'>
                     <td><a href='' id={this.props.rowData._id} onClick={this.handleProjectClick} >{this.props.rowData.title}</a></td>
                     <td><a href='' id={this.props.rowData.employer_id} onClick={this.handleProfileClick} >{this.props.rowData.employer_name}</a></td>
-                    <td>{this.props.rowData.technology_stack}</td>
+                    <td>{this.props.rowData.technology_stack.join(',')}</td>
                     <td>$ {this.calculateAverageBid(this.props.rowData.bids)}</td>
                     <td>$ {this.props.rowData.budget_range[0]}-{this.props.rowData.budget_range[1]}</td>
                     <td>{this.props.rowData.budget_period} Days</td>

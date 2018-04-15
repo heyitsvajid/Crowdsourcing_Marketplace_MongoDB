@@ -12,7 +12,6 @@ var router = express.Router();
 
 
 //For Client-Session
-
 //  var session = require('client-sessions');
 //  app.use(session({
 //    cookieName: 'session',
@@ -26,7 +25,7 @@ var router = express.Router();
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://root:root@ds221609.mlab.com:21609/freelancer', {poolSize: 1000})
+mongoose.connect('mongodb://root:root@ds221609.mlab.com:21609/freelancer', {poolSize: 10})
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('connected', function () {
@@ -56,6 +55,11 @@ app.use(session({
   //set our port to either a predetermined port number if you have set 
 //it up, or 3001
 var port = process.env.API_PORT || 3001;
+
+process.on('uncaughtException', function (err) {
+  console.error(err.stack);
+  console.log("Node NOT Exiting...");
+});
 
 //configuring body parser to look for body data
 app.use(bodyParser.urlencoded({ extended: true }));
