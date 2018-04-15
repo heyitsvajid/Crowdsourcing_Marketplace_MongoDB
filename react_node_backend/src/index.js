@@ -33,8 +33,8 @@ ReactDOM.render(
         <Route exact path="/myprojects" component={MyProjects} />
         <Route exact path="/postproject" component={PostProject} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/" component={Index} />
-        <Route exact path="/home" component={Home} />
+        <Route exact path="/" component={Index} />        
+         <Route exact path="/home" component={Home} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/login" component={LogIn} />
         <Route exact path="/signup" component={SignUp} />
