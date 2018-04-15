@@ -184,7 +184,6 @@ producer.on('ready', function () {
             });
 
 
-            //Get Profile Image if any
             postProject_consumer.on('message', function (message) {
                 console.log('Kafka Server postProject_consumer : message received');
                 console.log(JSON.stringify(message.value));
@@ -460,6 +459,12 @@ producer.on('ready', function () {
                 });
             });
             console.log('server is running');
+
+            process.on('uncaughtException', function (err) {
+                console.error(err.stack);
+                console.log("Node NOT Exiting...");
+              });
+
             process.on("SIGINT", function () {
                 signup_consumer.close(true, function () {
                     process.exit();

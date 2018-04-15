@@ -1,5 +1,4 @@
 var db_controller;
-var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt');
 var multiparty = require('multiparty');
 let fs = require('fs');
@@ -11,13 +10,13 @@ var Payment = require('../model/payment.js');
 var Project = require('../model/project.js');
 var passport = require('../config/passport.js');
 var kafka = require('../kafka/client');
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'freelancer.prototype@gmail.com',
-        pass: '!QAZ2wsx#EDC'
-    }
-});
+// var transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: 'freelancer.prototype@gmail.com',
+//         pass: '!QAZ2wsx#EDC'
+//     }
+// });
 
 exports.uploadImage = function (req, res) {
     console.log("signup_request : node backend");
@@ -167,7 +166,6 @@ exports.login = function (req, res, next) {
 
         });
     })(req, res, next);
-
 }
 
 exports.signup = function (req, res) {

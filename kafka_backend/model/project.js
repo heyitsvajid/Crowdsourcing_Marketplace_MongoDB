@@ -6,9 +6,6 @@ var Schema = mongoose.Schema;
 var mongoServices = require('../services/mongo');
 var autoIncrement = mongoServices.autoIncrement;
 
-//create new instance of the mongoose.schema. the schema takes an 
-//object that shows the shape of your database entries.
-
 var ProjectSchema = new Schema({
     title: { type: String, trim: true, required: true },
     employer_id: { type: Number, required: true },
