@@ -1,23 +1,20 @@
-# Crowdsourcing Marketplace using MySQL
-To demonstrate the use of stateless RESTful web services by creating prototype of Freelancer web application. (www.freelancer.com).
+# Crowdsourcing Marketplace using Kafka and MongoDB
+To design and develop the prototype of ‘Freelancer’ (www.freelancer.com) web application and demonstrate the use of RESTful web services along with distributed messaging system Kafka as a middleware and NoSQL database MongoDB along with Passport as a authentication service middleware and deployment on Amazon EC2 instance.
 
 ```
 Individual assignment for CMPE 273 - Enterprise Distributed Systems course during Software Engineering.
 ```
-## Goal
-
-To design and develop the prototype of ‘Freelancer’ (www.freelancer.com) web application and demonstrate the use of RESTful web services along with distributed messaging system Kafka as a middleware and NoSQL database MongoDB along with Passport as a authentication service middleware and deployment on Amazon EC2 instance.
 
 ## Solution
 
-My Freelancer prototype application is divided into 3 parts:
+This application is divided into 3 parts:
 
 * freelancer-react-client
 * freelancer-node-backend
 * freelancer-kafka-backend
 
-Freelancer react client consists of react components and calls freelancer-node-backend API on any user action. freelancer-node-backend consists of 23+ APIs to send message to kafka topic on user action. freelancer-kafka-backend consists of 23 consumer. These consumers keep on listening to 23 topics and perform activities on receiving the message on topic. freelancer-node-backend and freelancer-kafka-backend use ‘correlation-id’ to remember to communication and work as request/response. As there is one unique topic for each API, no single consumer is overloaded with multiple request and scalability is achieved.
-In this way freelancer-node-backend does the message producing part and freelancer-kafka-backend deals with performing actual functionality involving MongoDB database.
+react-client consists of react components and calls node-backend API on any user action. node-backend consists of 23+ APIs to send message to kafka topic on user action. kafka-backend consists of 23 consumer. These consumers keep on listening to 23 topics and perform activities on receiving the message on topic. node-backend and kafka-backend use ‘correlation-id’ to remember to communication and work as request/response. As there is one unique topic for each API, no single consumer is overloaded with multiple request and scalability is achieved.
+In this way node-backend does the message producing part and kafka-backend deals with performing actual functionality involving MongoDB database.
 In this application Passport JS node module is used as a authentication middleware with persistent session configuration which are stored in MongoDB. This provides horizontal scalability.
 
 
@@ -67,7 +64,7 @@ Consists of 3 collections:
 
 |MongoDB|Express|React|NodeJS|
 |--|--|--|--|
-|[![mdb](https://github.com/mongodb-js/leaf/blob/master/dist/mongodb-leaf_256x256.png?raw=true)](https://www.mongodb.com/)|[![mdb](https://camo.githubusercontent.com/fc61dcbdb7a6e49d3adecc12194b24ab20dfa25b/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67)](http://expressjs.com/de/)|[![mdb](https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png)](https://facebook.github.io/react/)|[![mdb](https://camo.githubusercontent.com/9c24355bb3afbff914503b663ade7beb341079fa/68747470733a2f2f6e6f64656a732e6f72672f7374617469632f696d616765732f6c6f676f2d6c696768742e737667)](https://nodejs.org/en/)|
+|[![mdb](https://github.com/mongodb-js/leaf/blob/master/dist/mongodb-leaf_256x256.png?raw=true)](https://www.mongodb.com/)|[![mdb](https://camo.githubusercontent.com/fc61dcbdb7a6e49d3adecc12194b24ab20dfa25b/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67)](http://expressjs.com/de/)|[![mdb](https://cdn.auth0.com/blog/react-js/react.png)](https://facebook.github.io/react/)|[![mdb](https://camo.githubusercontent.com/9c24355bb3afbff914503b663ade7beb341079fa/68747470733a2f2f6e6f64656a732e6f72672f7374617469632f696d616765732f6c6f676f2d6c696768742e737667)](https://nodejs.org/en/)|
 |a free and open-source cross-platform document-oriented database program|Fast, unopinionated, minimalist web framework for node.|a JavaScript library for building user interfaces|a JavaScript runtime built on Chrome's V8 JavaScript engine|
 
 
@@ -87,7 +84,7 @@ Consists of 3 collections:
 | [MaterializeCSS](http://materializecss.com/) | A a CSS Framework based on material design. | Frontend |
 | [Express](https://github.com/expressjs/express) | For creating the backend logic | Backend |
 | [Mongoose](https://github.com/Automattic/mongoose) | To work faster with MongoDB | Backend |
-| [Apache Kafka](http://eslint.org/)| Messaging Service | Middleware |
+| [Apache Kafka](https://kafka.apache.org/)| Messaging Service | Middleware |
 | [Passport](http://passportjs.org/) | For simplified authentication in Node.js | Backend |
 | [Babel](https://github.com/babel/babel) | Compiles ES6 into ES5 | General |
 | [Webpack](http://webpack.github.io) | Bundles npm packages and our JS into a single file. | General |  
@@ -96,11 +93,22 @@ Consists of 3 collections:
 
 ### Steps to run application:
 
-* Create database schema 
-* Go to path : …\Lab1-Freelancer\freelancer
+*	Download the kafka latest release and un-zip it.
+*	Go to kafka directory: cd kafka_2.11-1.1.0
+*	Start Zookeeper: bin/zookeeper-server-start.sh config/ zookeeper.properties
+*	Start Kafka :  bin/kafka-server-start.sh config/server.properties
+*	Create Topics : Lab2-Kagdi/kafka_topics
+* Go to Path : \react_node_backend
 * npm install
-* npm run start-dev 
+* npm run start-dev
+
 > This will start ReactJS server on 3000 port and NodeJS server will start at 3001 port.
+
+* Go to Path : \ kafka_backend
+* npm install
+*	node server.js
+
+> This will start kafka_backend server.
 
 ## 📝 Author
 [<img src="" align="right" height="100">](https://github.com/heyitsvajid)
