@@ -9,9 +9,9 @@ Individual assignment for CMPE 273 - Enterprise Distributed Systems course durin
 
 This application is divided into 3 parts:
 
-* freelancer-react-client
-* freelancer-node-backend
-* freelancer-kafka-backend
+* react-client
+* node-backend
+* kafka-backend
 
 react-client consists of react components and calls node-backend API on any user action. node-backend consists of 23+ APIs to send message to kafka topic on user action. kafka-backend consists of 23 consumer. These consumers keep on listening to 23 topics and perform activities on receiving the message on topic. node-backend and kafka-backend use ‘correlation-id’ to remember to communication and work as request/response. As there is one unique topic for each API, no single consumer is overloaded with multiple request and scalability is achieved.
 In this way node-backend does the message producing part and kafka-backend deals with performing actual functionality involving MongoDB database.
