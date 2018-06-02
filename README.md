@@ -69,7 +69,7 @@ Consists of 3 collections:
 
 
 ## System Architecture
-![Architecture](/Architecture.png)
+![Architecture](/architecture.png)
 
 
 ## Frameworks / Libraries
