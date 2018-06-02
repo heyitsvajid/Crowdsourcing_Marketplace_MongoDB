@@ -548,7 +548,7 @@ exports.postProject = function (req, res) {
         } catch (e) {
             console.log('Catch');
             console.log(e);
-            resultObject.errorMsg = 'Error Uploading Image';
+            resultObject.errorMsg = 'Error Posting project';
             res.json(resultObject);
             return;
         }

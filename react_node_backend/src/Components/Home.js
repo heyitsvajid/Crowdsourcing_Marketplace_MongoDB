@@ -155,7 +155,6 @@ class Home extends Component {
 
     handlePageClick(e) {
         e.preventDefault();
-        //        alert(e.target.id);
         var initialDisplay = this.state.paginationData[e.target.id]
         this.setState({
             tableRowData: initialDisplay
